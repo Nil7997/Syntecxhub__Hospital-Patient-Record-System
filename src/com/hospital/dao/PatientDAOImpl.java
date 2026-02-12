@@ -11,15 +11,17 @@ import java.util.List;
 import com.hospital.model.Patient;
 import com.hospital.util.DBConnection;
 
-public class PatientDAOImpl implements PatientDAO {
-
+public class PatientDAOImpl implements PatientDAO
+    {
+        
     @Override
-    public boolean addPatient(Patient patient) {
+    public boolean addPatient(Patient patient) 
+    {
         String sql = "INSERT INTO patients(name, age, gender, contact, medical_history) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+             PreparedStatement ps = con.prepareStatement(sql)) 
+        {
             ps.setString(1, patient.getName());
             ps.setInt(2, patient.getAge());
             ps.setString(3, patient.getGender());
@@ -28,41 +30,48 @@ public class PatientDAOImpl implements PatientDAO {
 
             return ps.executeUpdate() > 0;
 
-        } catch (Exception e) {
+        } 
+          catch (Exception e) 
+        {
             e.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public boolean updateMedicalHistory(int patientId, String history) {
+    public boolean updateMedicalHistory(int patientId, String history) 
+    {
         String sql = "UPDATE patients SET medical_history = ? WHERE patient_id = ?";
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+             PreparedStatement ps = con.prepareStatement(sql)) 
+        {
             ps.setString(1, history);
             ps.setInt(2, patientId);
 
             return ps.executeUpdate() > 0;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
         return false;
     }
 
     @Override
-    public Patient getPatientById(int patientId) {
+    public Patient getPatientById(int patientId) 
+    {
         String sql = "SELECT * FROM patients WHERE patient_id = ?";
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+             PreparedStatement ps = con.prepareStatement(sql)) 
+        {
             ps.setInt(1, patientId);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next()) 
+            {
                 Patient p = new Patient();
                 p.setPatientId(rs.getInt("patient_id"));
                 p.setName(rs.getString("name"));
@@ -73,22 +82,26 @@ public class PatientDAOImpl implements PatientDAO {
                 return p;
             }
 
-        } catch (Exception e) {
+        } 
+            catch (Exception e) 
+        {
             e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public List<Patient> getAllPatients() {
+    public List<Patient> getAllPatients() 
+    {
         List<Patient> list = new ArrayList<>();
         String sql = "SELECT * FROM patients";
 
         try (Connection con = DBConnection.getConnection();
              Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
-            while (rs.next()) {
+             ResultSet rs = st.executeQuery(sql)) 
+        {
+            while (rs.next()) 
+            {
                 Patient p = new Patient();
                 p.setPatientId(rs.getInt("patient_id"));
                 p.setName(rs.getString("name"));
@@ -99,23 +112,28 @@ public class PatientDAOImpl implements PatientDAO {
                 list.add(p);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
         return list;
     }
 
     @Override
-    public boolean deletePatient(int patientId) {
+    public boolean deletePatient(int patientId) 
+    {
         String sql = "DELETE FROM patients WHERE patient_id = ?";
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+             PreparedStatement ps = con.prepareStatement(sql)) 
+        {
             ps.setInt(1, patientId);
             return ps.executeUpdate() > 0;
 
-        } catch (Exception e) {
+        }
+            catch (Exception e) 
+        {
             e.printStackTrace();
         }
         return false;
