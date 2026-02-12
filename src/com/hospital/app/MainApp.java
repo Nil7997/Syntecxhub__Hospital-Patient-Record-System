@@ -6,10 +6,10 @@ import java.util.Scanner;
 import com.hospital.model.Patient;
 import com.hospital.service.PatientService;
 
-public class MainApp {
-
-    public static void main(String[] args) {
-
+public class MainApp 
+{
+    public static void main(String[] args) 
+    {
         Scanner sc = new Scanner(System.in);
         PatientService service = new PatientService();
         int choice;
@@ -25,8 +25,8 @@ public class MainApp {
             System.out.print("Enter choice: ");
             choice = sc.nextInt();
 
-            switch (choice) {
-
+            switch (choice) 
+            {
                 case 1:
                     sc.nextLine();
                     System.out.print("Name: ");
