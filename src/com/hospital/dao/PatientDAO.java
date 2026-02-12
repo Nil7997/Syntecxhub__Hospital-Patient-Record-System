@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.hospital.model.Patient;
 
-public interface PatientDAO {
-
+public interface PatientDAO 
+{
     boolean addPatient(Patient patient);
     boolean updateMedicalHistory(int patientId, String history);
     Patient getPatientById(int patientId);
